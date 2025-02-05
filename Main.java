@@ -16,7 +16,7 @@ public class Main {
             for (int i = 1; i <= 50; i++) {
                 System.out.println("thread # " + threadNumber + ": " + i);
                 try {
-                    // สุ่มดีเลย์ระหว่าง 100 ถึง 500 มิลลิวินาที
+                    // สุ่มดีเลย์ระหว่าง 100 ถึง 500 มิลลิวินาที (0.1 - 0.5 วินาที)
                     Thread.sleep(random.nextInt(400) + 100);
                 } catch (InterruptedException e) {
                     System.out.println("Thread #" + threadNumber + " interrupted.");
@@ -26,7 +26,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // สร้างและรัน threads
+        // สร้างและรัน threads 
         Thread t1 = new Thread(new NumberPrinter(1));
         Thread t2 = new Thread(new NumberPrinter(2));
         Thread t3 = new Thread(new NumberPrinter(3));
@@ -59,5 +59,12 @@ public class Main {
         Java ไม่มีการรับประกันว่า thread ใดจะเริ่มทำงานก่อนหรือแสดงผลก่อน เพราะการจัดการ thread ขึ้นอยู่กับ Thread Scheduler ของ JVM และระบบปฏิบัติการ
         การเรียกใช้ Thread.sleep() แบบสุ่มช่วยให้ thread หยุดทำงานชั่วคราว ส่งผลให้ thread อื่นได้ทำงานแทน
         ผลลัพธ์จึงเปลี่ยนแปลงไปในแต่ละครั้งที่รันโปรแกรม เนื่องจาก context switching ระหว่าง thread ที่เกิดขึ้น
+
+        โดยปกติการทำงานของ code จะเรียงตามลำดับที่เขียนไว้ บนลงล่าง เรียงตามลำลับความสำคัญของ code 
+        แต่ในกรณีของ multithreading การทำงานของแต่ละ thread จะเรียงตามลำดับที่ JVM จัดการ
+        สามารถทำหลายอย่างได้ในเวลาเดียวกันโดยการใช้ Thread.sleep() แบบสุ่มเพื่อให้ thread หยุดทำงานชั่วคราว
+        จึงเกิด order of magnitude ที่แตกต่างกันในแต่ละครั้งที่รันโปรแกรม
+        เลยทำให้เกิด Thread ที่เริ่มทำงานก่อนหรือแสดงผลก่อนได้เปลี่ยนไปในแต่ละครั้งที่รันโปรแกรม
+        
         */
 }
